@@ -20,45 +20,43 @@ const stats = {
 
 export default function () {
     return (
-        <SafeAreaView style={{ backgroundColor: theme.colors.background.light }}>
-            <Container contentContainerStyle={{ paddingBottom: RFValue(20) }}>
-                <TextGreeting>Olá, {stats.name.split(' ')[0]}</TextGreeting>
-                <HourCard />
+        <Container contentContainerStyle={{ paddingBottom: 20 }}>
+            <TextGreeting>Olá, {stats.name.split(' ')[0]}</TextGreeting>
+            <HourCard />
 
-                <VStack space={4} alignItems='center'>
-                    <HStack space={4}>
-                        <StatsCard
-                            value={stats.weight}
-                            variation='weight'
-                            color={theme.colors.variations.color01}
-                        />
-                        <StatsCard
-                            value={stats.height}
-                            variation='height'
-                            color={theme.colors.variations.color02}
-                        />
-                    </HStack>
-                    <HStack space={4}>
-                        <StatsCard
-                            value={stats.imc}
-                            variation='imc'
-                            color={theme.colors.variations.color03}
-                        />
-                        <StatsCard
-                            value={stats.steps}
-                            variation='steps'
-                            color={theme.colors.variations.color04}
-                        />
-                    </HStack>
-                    <HStack>
-                        <StatsCard
-                            value={stats.exercises.join(', ')}
-                            variation='exercises'
-                            color={theme.colors.variations.color05}
-                        />
-                    </HStack>
-                </VStack>
-            </Container>
-        </SafeAreaView>
+            <VStack space={4} alignItems='center'>
+                <HStack space={4}>
+                    <StatsCard
+                        value={stats.weight}
+                        variation='weight'
+                        color={theme.colors.variations.color01}
+                    />
+                    <StatsCard
+                        value={stats.height}
+                        variation='height'
+                        color={theme.colors.variations.color02}
+                    />
+                </HStack>
+                <HStack space={4}>
+                    <StatsCard
+                        value={stats.imc}
+                        variation='imc'
+                        color={theme.colors.variations.color03}
+                    />
+                    <StatsCard
+                        value={stats.steps}
+                        variation='steps'
+                        color={theme.colors.variations.color04}
+                    />
+                </HStack>
+                <HStack>
+                    <StatsCard
+                        value={stats.exercises.join(', ')}
+                        variation='exercises'
+                        color={theme.colors.variations.color05}
+                    />
+                </HStack>
+            </VStack>
+        </Container>
     )
 }
