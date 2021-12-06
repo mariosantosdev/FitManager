@@ -2,7 +2,6 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import Header from '@components/Header';
 import { Container, TextGreeting } from './styles';
 import { HourCard, StatsCard } from '@components/Card';
 import { HStack, VStack } from 'native-base';
@@ -21,8 +20,7 @@ const stats = {
 
 export default function () {
     return (
-        <SafeAreaView>
-            <Header title='Inicio' />
+        <SafeAreaView style={{ backgroundColor: theme.colors.background.light }}>
             <Container contentContainerStyle={{ paddingBottom: RFValue(20) }}>
                 <TextGreeting>Olá, {stats.name.split(' ')[0]}</TextGreeting>
                 <HourCard />
