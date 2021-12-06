@@ -1,5 +1,3 @@
-import 'dayjs/locale/pt-br';
-
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppLoading from 'expo-app-loading';
