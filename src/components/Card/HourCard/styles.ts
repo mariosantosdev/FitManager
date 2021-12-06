@@ -24,7 +24,7 @@ export const HourText = styled.Text`
     color: ${({ theme }) => theme.colors.text.inDark};
     font-family: ${({ theme }) => theme.fonts.medium};
     font-size: ${RFValue(72)}px;
-    margin: -20px 0;
+    line-height: ${RFValue(72)}px;
 `;
 
 export const DateText = styled.Text`
