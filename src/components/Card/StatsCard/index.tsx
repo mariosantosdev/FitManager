@@ -60,8 +60,8 @@ export default function (props: IPropssStats) {
                     numberOfLines={1}
                 >
                     {value}
+                    {infoStats() && <TextInfo>{infoStats()}</TextInfo>}
                 </Value>
-                {infoStats() && <TextInfo>{infoStats()}</TextInfo>}
             </Wrapper>
             <Wrapper>
                 <TextVariation>{variationName()}</TextVariation>
