@@ -21,10 +21,10 @@ const colors = {
 }
 
 const fonts = {
-    light: 'Poppins_300Light',
-    regular: 'Poppins_400Regular',
-    medium: 'Poppins_500Medium',
-    bold: 'Poppins_700Bold'
+    light: 'Roboto_300Light',
+    regular: 'Roboto_400Regular',
+    medium: 'Roboto_500Medium',
+    bold: 'Roboto_700Bold'
 }
 
 export const nativeBaseTheme = extendTheme({

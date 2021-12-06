@@ -4,11 +4,11 @@ import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import {
     useFonts,
-    Poppins_300Light,
-    Poppins_400Regular,
-    Poppins_500Medium,
-    Poppins_700Bold
-} from '@expo-google-fonts/poppins';
+    Roboto_300Light,
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold
+} from '@expo-google-fonts/roboto';
 import { NativeBaseProvider } from 'native-base'
 import { ThemeProvider } from 'styled-components';
 
@@ -17,10 +17,10 @@ import Routes from './src/routes';
 
 export default function App() {
     const [fontsLoaded] = useFonts({
-        Poppins_300Light,
-        Poppins_400Regular,
-        Poppins_500Medium,
-        Poppins_700Bold
+        Roboto_300Light,
+        Roboto_400Regular,
+        Roboto_500Medium,
+        Roboto_700Bold
     });
 
     if (!fontsLoaded) return <AppLoading />
