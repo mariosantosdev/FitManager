@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
 
 import {
@@ -9,6 +9,7 @@ import {
 
 import CustomDrawerItem from '@components/Navigation/CustomDrawerItem';
 import GenerateAvatar from "@utils/gravatar";
+import { ScreeName } from "@utils/contants";
 
 import {
     Container,
@@ -38,6 +39,11 @@ export const screenOptions: DrawerNavigationOptions = {
 export default function CustomDrawer(props: DrawerContentComponentProps) {
     const { navigation } = props;
 
+    function getFocusScreen() {
+        const index = navigation.getState().index;
+        return navigation.getState().routes[index].name as ScreeName;
+    }
+
     const user = {
         name: 'Ana Flávia',
         email: 'anaflavia@email.com'
@@ -62,34 +68,51 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
                 <ListItems>
                     {/* Home Screen */}
                     <Pressable onPress={() => navigation.jumpTo('Home')}>
-                        <CustomDrawerItem label='Home' />
+                        <CustomDrawerItem
+                            label='Home'
+                            isActive={getFocusScreen() === 'Home'}
+                        />
                     </Pressable>
 
                     {/* Weight Screen */}
                     <Pressable onPress={() => navigation.jumpTo('Weight')}>
-                        <CustomDrawerItem label='Weight' />
+                        <CustomDrawerItem
+                            label='Weight'
+                            isActive={getFocusScreen() === 'Weight'}
+                        />
                     </Pressable>
 
                     {/* Height Screen */}
                     <Pressable onPress={() => navigation.jumpTo('Height')}>
-                        <CustomDrawerItem label='Height' />
+                        <CustomDrawerItem
+                            label='Height'
+                            isActive={getFocusScreen() === 'Height'}
+                        />
                     </Pressable>
 
                     {/* Exercises Screen */}
                     <Pressable onPress={() => navigation.jumpTo('Exercises')}>
-                        <CustomDrawerItem label='Exercises' />
+                        <CustomDrawerItem
+                            label='Exercises'
+                            isActive={getFocusScreen() === 'Exercise'}
+                        />
                     </Pressable>
                 </ListItems>
 
                 <View>
                     {/* Settings Screen */}
                     <Pressable onPress={() => navigation.jumpTo('Settings')}>
-                        <CustomDrawerItem label='Settings' />
+                        <CustomDrawerItem
+                            label='Settings'
+                            isActive={getFocusScreen() === 'Settings'}
+                        />
                     </Pressable>
 
                     {/* SignOut Action */}
                     <Pressable onPress={() => { }}>
-                        <CustomDrawerItem label='SignOut' />
+                        <CustomDrawerItem
+                            label='SignOut'
+                        />
                     </Pressable>
 
                 </View>

@@ -12,6 +12,7 @@ export type NameScreens = 'Home' | 'Weight' | 'Height' | 'Exercises' | 'Settings
 
 export interface ICustomDrawerItemProps {
     label: NameScreens;
+    isActive?: boolean;
 }
 
 function GetIconFromNameScreen(nameScreen: NameScreens) {
@@ -65,16 +66,16 @@ function GetTitleFromNameScreen(nameScreen: NameScreens) {
 }
 
 export default function CustomDrawerItem(props: ICustomDrawerItemProps) {
-    const { label } = props;
+    const { isActive, label } = props;
 
     return (
-        <Container>
+        <Container isActive={isActive}>
             <MaterialCommunityIcons
                 size={28}
-                color={theme.colors.text.inDark}
+                color={isActive ? theme.colors.text.inLight : theme.colors.text.inDark}
                 name={GetIconFromNameScreen(label)}
             />
-            <Text>{GetTitleFromNameScreen(label)}</Text>
+            <Text isActive={isActive}>{GetTitleFromNameScreen(label)}</Text>
         </Container>
     );
 }
