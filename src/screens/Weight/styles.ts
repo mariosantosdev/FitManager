@@ -1,4 +1,4 @@
-import { Input as NBInput } from 'native-base';
+import { Button as NBButton } from 'native-base';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from "styled-components/native";
 
@@ -17,7 +17,7 @@ export const Footer = styled.View`
     margin: -${RFValue(20)}px -${RFValue(12)}px;
 `;
 
-export const Input = styled(NBInput)`
+export const Button = styled(NBButton)`
     color: ${({ theme }) => theme.colors.text.inDark};
     border: 0px;
     text-align: center;

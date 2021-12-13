@@ -4,10 +4,10 @@ import { FlatList } from 'react-native';
 import LayoutScreen from '@components/LayoutScreen';
 import ListItem from '@components/ListItem';
 import Menu from '@components/Header';
-import theme from '@utils/theme';
 
-import { Container, Footer, Input } from './styles';
+import { Container, Footer, Button } from './styles';
 import { Divider } from 'native-base';
+import ModalCreateItem from '@components/Modals/CreateItem';
 
 type Weight = {
     id: number;
@@ -30,36 +30,43 @@ const weights: Weight[] = [
 
 export default function () {
     const [weightInput, setWeightInput] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
-    function handleSubmitWeight() {
+    function handleSubmitWeight(value: string, date: string) {
         if (!weightInput.trim()) return;
+        setShowModal(false);
 
         alert(`${weightInput} kg`);
         setWeightInput('');
     }
 
+    const handleShowModal = () => setShowModal(true);
+    const handleHideModal = () => setShowModal(false);
+
     return (
-        <LayoutScreen>
-            <Container>
-                <Menu />
-                <FlatList
-                    data={weights}
-                    keyExtractor={(item) => `${item.id}`}
-                    renderItem={({ item }) => <ListItem item={item} />}
-                    ItemSeparatorComponent={() => <Divider />}
-                    contentContainerStyle={{ flex: 1 }}
-                />
-                <Footer>
-                    <Input
-                        placeholder='ADICIONAR PESO'
-                        placeholderTextColor={theme.colors.text.inDark}
-                        keyboardType='numeric'
-                        onSubmitEditing={handleSubmitWeight}
-                        value={weightInput}
-                        onChangeText={setWeightInput}
+        <React.Fragment>
+            <LayoutScreen>
+                <Container>
+                    <Menu />
+                    <FlatList
+                        data={weights}
+                        keyExtractor={(item) => `${item.id}`}
+                        renderItem={({ item }) => <ListItem item={item} />}
+                        ItemSeparatorComponent={() => <Divider />}
+                        contentContainerStyle={{ flex: 1 }}
                     />
-                </Footer>
-            </Container>
-        </LayoutScreen>
+                    <Footer>
+                        <Button onPress={handleShowModal}>ADICIONAR PESO</Button>
+                    </Footer>
+                </Container>
+            </LayoutScreen>
+            <ModalCreateItem
+                open={showModal}
+                title='Adicionar Peso'
+                action={handleSubmitWeight}
+                onClose={handleHideModal}
+                variant='Peso'
+            />
+        </React.Fragment>
     )
 }
