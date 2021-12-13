@@ -5,6 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import HomeScreen from '@screens/Home';
 import WeightScreen from '@screens/Weight';
+import HeightScreen from '@screens/Height';
 
 import CustomDrawer, { screenOptions } from '@components/Navigation/CustomDrawer';
 import theme from '@utils/theme';
@@ -27,6 +28,11 @@ export default function InnerDrawer() {
                     name="Weight"
                     options={{ title: 'Pesos' }}
                     component={WeightScreen}
+                />
+                <Drawer.Screen
+                    name="Height"
+                    options={{ title: 'Altura' }}
+                    component={HeightScreen}
                 />
             </Drawer.Navigator>
         </View>
