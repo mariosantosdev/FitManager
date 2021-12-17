@@ -15,7 +15,7 @@ interface IPropsModal {
     title: string;
     action: (value: string, date: string) => void;
     onClose: () => void;
-    variant: 'Peso' | 'Altura' | 'Exercício';
+    variant: 'Peso' | 'Altura';
 }
 
 export default function ModalCreateItem(props: IPropsModal) {
