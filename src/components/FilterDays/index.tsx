@@ -57,7 +57,7 @@ export default function FilterDays(props: IFilterDays) {
                     {days.map((item) => {
                         if (item.value === value) {
                             return (
-                                <Box w='100%' h={60} px={4} justifyContent='center'>
+                                <Box key={item.value} w='100%' h={60} px={4} justifyContent='center'>
                                     <Text
                                         fontSize={16}
                                         color='gray.500'
@@ -70,7 +70,7 @@ export default function FilterDays(props: IFilterDays) {
                         }
 
                         return (
-                            <Actionsheet.Item onPress={() => handleChangeValue(item.value)}>
+                            <Actionsheet.Item key={item.value} onPress={() => handleChangeValue(item.value)}>
                                 {item.title}
                             </Actionsheet.Item>
                         )
