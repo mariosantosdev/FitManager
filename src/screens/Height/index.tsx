@@ -53,7 +53,7 @@ export default function () {
                         keyExtractor={(item) => `${item.id}`}
                         renderItem={({ item }) => <ListItem item={item} />}
                         ItemSeparatorComponent={() => <Divider />}
-                        contentContainerStyle={{ flex: 1 }}
+                        contentContainerStyle={{ paddingBottom: 20 }}
                     />
                     <Footer>
                         <Button onPress={handleShowModal}>ADICIONAR ALTURA</Button>
