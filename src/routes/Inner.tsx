@@ -7,6 +7,7 @@ import HomeScreen from '@screens/Home';
 import WeightScreen from '@screens/Weight';
 import HeightScreen from '@screens/Height';
 import ExercisesScreen from '@screens/Exercises';
+import SettingsScreen from '@screens/Settings';
 
 import CustomDrawer, { screenOptions } from '@components/Navigation/CustomDrawer';
 import theme from '@utils/theme';
@@ -39,6 +40,11 @@ export default function InnerDrawer() {
                     name="Exercises"
                     options={{ title: 'Exercícios' }}
                     component={ExercisesScreen}
+                />
+                <Drawer.Screen
+                    name="Settings"
+                    options={{ title: 'Configurações' }}
+                    component={SettingsScreen}
                 />
             </Drawer.Navigator>
         </View>
