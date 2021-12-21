@@ -54,7 +54,7 @@ export default function () {
                             color={theme.colors.variations.color03}
                         />
                         <StatsCard
-                            value={stats.steps}
+                            value='0'
                             variation='steps'
                             color={theme.colors.variations.color04}
                         />
