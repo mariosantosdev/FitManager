@@ -1,4 +1,4 @@
-package com.mobile;
+package com.mariotech.fitmanager;
 
 import android.os.Bundle;
 

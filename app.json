@@ -1,11 +1,24 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
+    "name": "Fit Manager",
+    "owner": "neversantos",
+    "slug": "FitManager",
+    "githubUrl": "https://github.com/mariosantosdev/FitManager",
+    "orientation": "portrait",
+    "primaryColor": "#9C9AED",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "com.mariotech.fitmanager",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-7642727712683174~4619731311"
+      }
+    },
+    "ios": {
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
+      }
+    }
   },
-  "name": "mobile"
+  "name": "Fit Manager"
 }
