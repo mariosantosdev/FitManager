@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AdMobBanner } from 'expo-ads-admob';
 import { FlatList } from 'react-native';
 
 import LayoutScreen from '@components/LayoutScreen';
@@ -54,6 +55,13 @@ export default function () {
                         renderItem={({ item }) => <ListItem item={item} />}
                         ItemSeparatorComponent={() => <Divider />}
                         contentContainerStyle={{ paddingBottom: 20 }}
+                        ListFooterComponent={
+                            <AdMobBanner
+                                bannerSize="fullBanner"
+                                adUnitID="ca-app-pub-7642727712683174/6790082160" // Test ID, Replace with your-admob-unit-id
+                                servePersonalizedAds
+                                onDidFailToReceiveAdWithError={(error) => console.log(error)} />
+                        }
                     />
                     <Footer>
                         <Button onPress={handleShowModal}>ADICIONAR ALTURA</Button>

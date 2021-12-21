@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { AdMobBanner } from 'expo-ads-admob';
 import { HStack, VStack } from 'native-base';
 
 import LayoutScreen from '@components/LayoutScreen';
@@ -25,6 +26,11 @@ export default function () {
         <LayoutScreen>
             <Container contentContainerStyle={{ paddingBottom: 20 }}>
                 <Menu />
+                <AdMobBanner
+                    bannerSize="fullBanner"
+                    adUnitID="ca-app-pub-7642727712683174/6790082160" // Test ID, Replace with your-admob-unit-id
+                    servePersonalizedAds
+                    onDidFailToReceiveAdWithError={(error) => console.log(error)} />
                 <TextGreeting>Olá, {stats.name.split(' ')[0]}</TextGreeting>
                 <HourCard />
 
