@@ -12,6 +12,7 @@ import {
 import { NativeBaseProvider } from 'native-base'
 import { ThemeProvider } from 'styled-components';
 
+import UserContextProvider from '@contexts/user';
 import theme, { nativeBaseTheme } from './src/utils/theme';
 import Routes from './src/routes';
 
@@ -29,8 +30,10 @@ export default function App() {
         <ThemeProvider theme={theme}>
             <NativeBaseProvider theme={nativeBaseTheme}>
                 <SafeAreaProvider>
-                    <StatusBar style="auto" />
-                    <Routes />
+                    <UserContextProvider>
+                        <StatusBar style="auto" />
+                        <Routes />
+                    </UserContextProvider>
                 </SafeAreaProvider>
             </NativeBaseProvider>
         </ThemeProvider>
