@@ -28,3 +28,16 @@ export interface ISignInResponse {
         "weight": Weight[],
     };
 }
+
+export interface ISignUpResponse {
+    "token": string;
+    "refreshToken": string;
+    "user": {
+        "id": number;
+        "name": string;
+        "email": string;
+        "created_at": string;
+        "updated_at": string;
+        "last_login": string;
+    };
+}

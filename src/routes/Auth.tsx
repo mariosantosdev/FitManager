@@ -2,6 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import SignInScreen from '@screens/SignIn';
+import SignUpScreen from '@screens/SignUp';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,6 +12,7 @@ export default function NavigatorAuthStack() {
             headerShown: false,
         }}>
             <Stack.Screen name="SignIn" component={SignInScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
         </Stack.Navigator>
     );
 }
