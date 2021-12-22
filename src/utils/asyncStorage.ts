@@ -7,7 +7,7 @@ export enum StorageKeys {
 export function storageToken(token: string) {
     return new Promise(async (resolve, reject) => {
         try {
-            await AsyncStorage.setItem(StorageKeys.refreshToken, token);
+            await AsyncStorage.setItem(StorageKeys.token, token);
             resolve(token);
         } catch (error) {
             reject(error);
@@ -16,9 +16,9 @@ export function storageToken(token: string) {
 }
 
 export function getStorageToken() {
-    return new Promise(async (resolve, reject) => {
+    return new Promise<string>(async (resolve, reject) => {
         try {
-            const token = await AsyncStorage.getItem(StorageKeys.refreshToken);
+            const token = await AsyncStorage.getItem(StorageKeys.token);
             resolve(token);
         } catch (error) {
             reject(error);
