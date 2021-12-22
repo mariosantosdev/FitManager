@@ -83,6 +83,12 @@ export default function () {
 
         storageRefreshToken(data.refreshToken);
         storageToken(data.token);
+        toast.show({
+            status: 'success',
+            title: 'Sucesso',
+            description: 'Login realizado com sucesso.',
+            placement: 'bottom'
+        });
     }
 
     return (
