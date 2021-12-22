@@ -16,6 +16,7 @@ import api from "@utils/api";
 import { ISignUpResponse } from "@utils/apiTypes";
 import { UserContext } from "@contexts/user";
 import { storageRefreshToken, storageToken } from "@utils/asyncStorage";
+import Loading from "@components/Loading";
 
 export default function () {
     const toast = useToast();
@@ -26,6 +27,7 @@ export default function () {
     const [email, setEmail] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
     const [confirmPassword, setConfirmPassword] = React.useState<string>('');
+    const [loading, setLoading] = React.useState<boolean>(false);
 
     const handleNavigateSignIn = () => navigation.navigate('SignIn');
 
@@ -50,6 +52,7 @@ export default function () {
 
             if (password !== confirmPassword) return showError('Suas senhas NÃO são iguais!', 'Erro no formulário', 'different-passwords');
 
+            setLoading(true);
             const { data } = await api.post<ISignUpResponse>('signup', {
                 name,
                 email,
@@ -58,6 +61,7 @@ export default function () {
 
             successSignUp(data);
         } catch (error: any) {
+            setLoading(false);
             let messageError: string = 'Ocorreu um erro na conexão com o servidor!';
             if (error.response) {
                 if (typeof error.response.data.message === 'string') {
@@ -73,6 +77,7 @@ export default function () {
     }
 
     async function successSignUp(data: ISignUpResponse) {
+        setLoading(false);
         const { id, name } = data.user;
 
         setUser({
@@ -94,6 +99,8 @@ export default function () {
             placement: 'top'
         });
     }
+
+    if (loading) return <Loading />
 
     return (
         <Center flex={1}>

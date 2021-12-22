@@ -18,6 +18,7 @@ import api from "@utils/api";
 import { UserContext } from "@contexts/user";
 import { ISignInResponse } from "@utils/apiTypes";
 import { storageRefreshToken, storageToken } from "@utils/asyncStorage";
+import Loading from "@components/Loading";
 
 export default function () {
     const navigation = useNavigation();
@@ -26,6 +27,7 @@ export default function () {
 
     const [email, setEmail] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
+    const [loading, setLoading] = React.useState<boolean>(false);
 
     const handleNavigateSignUp = () => navigation.navigate('SignUp');
     const handleNavigateForgetPassword = () => navigation.navigate('ForgetPassword');
@@ -46,6 +48,7 @@ export default function () {
         try {
             if (!email.trim()) return showError('Preencha o campo E-mail!', 'Erro no Formulário', 'miss-email');
             if (!password.trim()) return showError('Preencha o campo Senha!', 'Erro no Formulário', 'miss-pass');
+            setLoading(true);
 
             const { data } = await api.post<ISignInResponse>('/signin', {
                 email,
@@ -53,6 +56,7 @@ export default function () {
             });
             successSignIn(data);
         } catch (error: any) {
+            setLoading(false);
             let messageError: string = 'Ocorreu um erro na conexão com o servidor!';
             if (error.response) {
                 if (typeof error.response.data.message === 'string') {
@@ -68,6 +72,7 @@ export default function () {
     }
 
     async function successSignIn(data: ISignInResponse) {
+        setLoading(false);
         const { id, name, height, weight } = data.user;
 
         setUser({
@@ -90,6 +95,8 @@ export default function () {
             placement: 'bottom'
         });
     }
+
+    if (loading) return <Loading />
 
     return (
         <Center flex={1}>
