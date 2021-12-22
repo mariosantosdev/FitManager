@@ -17,7 +17,7 @@ import {
 import api from "@utils/api";
 import { UserContext } from "@contexts/user";
 import { ISignInResponse } from "@utils/apiTypes";
-import { storageRefreshToken, storageToken } from "@utils/asyncStorage";
+import { storageToken } from "@utils/asyncStorage";
 import Loading from "@components/Loading";
 
 export default function () {
@@ -86,7 +86,6 @@ export default function () {
         setHeight(height);
         setWeight(weight);
 
-        storageRefreshToken(data.refreshToken);
         storageToken(data.token);
         toast.show({
             status: 'success',

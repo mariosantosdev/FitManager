@@ -16,7 +16,6 @@ export type Weight = {
 
 export interface ISignInResponse {
     "token": string;
-    "refreshToken": string;
     "user": {
         "id": number;
         "name": string;
@@ -31,7 +30,6 @@ export interface ISignInResponse {
 
 export interface ISignUpResponse {
     "token": string;
-    "refreshToken": string;
     "user": {
         "id": number;
         "name": string;
