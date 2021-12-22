@@ -25,7 +25,6 @@ type User = {
     name: string;
     email: string;
     token: string;
-    refreshToken: string;
 }
 
 interface IUserContext {
@@ -50,7 +49,6 @@ export default function UserContextProvider({ children }) {
         name: '',
         email: '',
         token: '',
-        refreshToken: ''
     });
 
     const [weight, setWeight] = useState<Weight[]>([]);

@@ -80,7 +80,6 @@ export default function () {
             name,
             email,
             token: data.token,
-            refreshToken: data.refreshToken,
         });
 
         setHeight(height);
