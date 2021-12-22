@@ -38,6 +38,7 @@ interface IUserContext {
         setWeight: React.Dispatch<React.SetStateAction<Weight[]>>;
         setHeight: React.Dispatch<React.SetStateAction<Height[]>>;
         setExercise: React.Dispatch<React.SetStateAction<Exercise[]>>;
+        signOut: () => void;
     }
 }
 
@@ -55,11 +56,24 @@ export default function UserContextProvider({ children }) {
     const [height, setHeight] = useState<Height[]>([]);
     const [exercises, setExercise] = useState<Exercise[]>([]);
 
+    function signOut() {
+        setUser({
+            id: 0,
+            name: '',
+            email: '',
+            token: '',
+        });
+        setWeight([]);
+        setHeight([]);
+        setExercise([]);
+    }
+
     const actions = {
         setUser,
         setWeight,
         setHeight,
-        setExercise
+        setExercise,
+        signOut,
     }
 
     return (

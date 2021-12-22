@@ -25,3 +25,14 @@ export function getStorageToken() {
         }
     })
 }
+
+export function clearStorageToken() {
+    return new Promise<void>(async (resolve, reject) => {
+        try {
+            await AsyncStorage.removeItem(StorageKeys.token);
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
+    })
+}

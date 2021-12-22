@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Pressable, View } from "react-native";
 
 import {
@@ -20,6 +20,8 @@ import {
     Email,
     ListItems,
 } from './styles';
+import { clearStorageToken } from "@utils/asyncStorage";
+import { UserContext } from "@contexts/user";
 
 export const screenOptions: DrawerNavigationOptions = {
     drawerType: 'slide',
@@ -38,15 +40,17 @@ export const screenOptions: DrawerNavigationOptions = {
 
 export default function CustomDrawer(props: DrawerContentComponentProps) {
     const { navigation } = props;
+    const { user } = useContext(UserContext);
+    const { signOut } = useContext(UserContext).actions;
 
     function getFocusScreen() {
         const index = navigation.getState().index;
         return navigation.getState().routes[index].name as ScreeName;
     }
 
-    const user = {
-        name: 'Ana Flávia',
-        email: 'anaflavia@email.com'
+    async function handleSignOut() {
+        await clearStorageToken();
+        signOut();
     }
 
     const gravatarURI = GenerateAvatar(user.name);
@@ -94,7 +98,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
                     <Pressable onPress={() => navigation.jumpTo('Exercises')}>
                         <CustomDrawerItem
                             label='Exercises'
-                            isActive={getFocusScreen() === 'Exercise'}
+                            isActive={getFocusScreen() === 'Exercises'}
                         />
                     </Pressable>
                 </ListItems>
@@ -109,7 +113,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
                     </Pressable>
 
                     {/* SignOut Action */}
-                    <Pressable onPress={() => { }}>
+                    <Pressable onPress={handleSignOut}>
                         <CustomDrawerItem
                             label='SignOut'
                         />
