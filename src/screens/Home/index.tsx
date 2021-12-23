@@ -6,8 +6,9 @@ import { HStack, VStack } from 'native-base';
 import Menu from '@components/Header';
 import LayoutScreen from '@components/LayoutScreen';
 import { HourCard, StatsCard } from '@components/Card';
-import { UserContext } from '@contexts/user';
+import { Height, UserContext, Weight } from '@contexts/user';
 import theme from '@utils/theme';
+import { SortItemsByDate } from '@utils/items';
 
 import { Container, TextGreeting } from './styles';
 
@@ -21,19 +22,27 @@ export default function () {
 
     function calculateIMC() {
         const isValid = lastHeight && lastWeight;
-        const imcNumber = lastWeight / (Math.pow(lastHeight, 2));
+        const imcNumber = (lastWeight / (Math.pow((lastHeight / 100), 2))).toFixed(2);
 
         setIMC(isValid ? String(imcNumber) : 'NaN');
     }
 
     useEffect(() => {
-        const tempLastWeight = weight.length > 0 ? Number(weight.reverse()[0].title.replace(' kg', '') || 0) : 0;
-        setLastWeight(tempLastWeight);
+        if (weight.length > 0) {
+            const tempLastWeight = SortItemsByDate<Weight, number>(weight).reverse()[0].title.replace(' kg', '')
+            setLastWeight(Number(tempLastWeight));
+        } else {
+            setLastWeight(NaN);
+        }
     }, [weight]);
 
     useEffect(() => {
-        const tempLastHeight = height.length > 0 ? Number(height.reverse()[0].title.replace(' cm', '') || 0) : 0;
-        setLastHeight(tempLastHeight);
+        if (height.length > 0) {
+            const tempLastHeight = SortItemsByDate<Height, number>(height).reverse()[0].title.replace(' cm', '')
+            setLastHeight(Number(tempLastHeight));
+        } else {
+            setLastHeight(NaN);
+        }
     }, [height]);
 
     useEffect(() => calculateIMC(), [lastWeight, lastHeight]);
