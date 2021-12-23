@@ -18,32 +18,43 @@ import Loading from "@components/Loading";
 
 interface IPropsModal {
     open: boolean;
-    isCreatedExercise: React.Dispatch<React.SetStateAction<boolean>>;
+    refetch: () => Promise<void>;
     onClose: () => void;
 }
 
 export default function ModalCreateExercise(props: IPropsModal) {
-    const { open, onClose, isCreatedExercise } = props;
+    const { open, onClose, refetch } = props;
     const toast = useToast();
 
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
 
     const [exercise, setExercise] = useState('');
-    const [day_of_week, setDayOfWeek] = useState<string>();
+    const [day_of_week, setDayOfWeek] = useState<string>('');
 
-    const [delay_time, setDelayTime] = useState<string>();
-    const [time, setTime] = useState('seg');
+    const [delay_time, setDelayTime] = useState<string>('');
+    const [time, setTime] = useState<string>('seg');
 
-    const [loop, setLoop] = useState<string>();
-    const [loop01, setLoop01] = useState<string>();
-    const [loop02, setLoop02] = useState<string>();
+    const [loop, setLoop] = useState<string>('');
+    const [loop01, setLoop01] = useState<string>('');
+    const [loop02, setLoop02] = useState<string>('');
 
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setLoop(`${loop01}x${loop02}`)
+        if (loop01.trim() !== '' || loop02.trim() !== '') {
+            setLoop(`${loop01}x${loop02}`)
+        }
     }, [loop01, loop02]);
+
+    function resetStates() {
+        setExercise('');
+        setDayOfWeek('');
+        setTime('seg');
+        setLoop('');
+        setLoop01('');
+        setLoop02('');
+    }
 
     async function handleFinish() {
         try {
@@ -53,12 +64,13 @@ export default function ModalCreateExercise(props: IPropsModal) {
                 title: exercise,
                 day_of_week,
                 loop,
-                delay_time,
+                delay_time: delay_time.trim() ? `${delay_time} ${time}` : '',
             }, {
                 cancelToken: source.token
             });
 
-            isCreatedExercise(true);
+            await refetch();
+            resetStates();
             setLoading(false);
         } catch (error: any) {
             setLoading(false);
@@ -88,17 +100,6 @@ export default function ModalCreateExercise(props: IPropsModal) {
             </Modal>
         )
     }
-
-    useEffect(() => {
-        if (!open) {
-            setExercise('');
-            setDayOfWeek('');
-            setTime('seg');
-            setLoop('');
-            setLoop01('');
-            setLoop02('');
-        }
-    }, [open]);
 
     return (
         <Modal isOpen={open} onClose={onClose}>
