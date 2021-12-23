@@ -39,3 +39,11 @@ export interface ISignUpResponse {
         "last_login": string;
     };
 }
+
+export interface IWeightsReponse {
+    weights: Weight[];
+}
+
+export interface IHeightsReponse {
+    heights: Height[];
+}
