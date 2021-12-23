@@ -44,6 +44,16 @@ export default function ModalCreateItem(props: IPropsModal) {
         setDate(selectedDate);
     }
 
+    function renderHelperText() {
+        switch (variant) {
+            case 'Altura':
+                return 'Altura deve ser em cm.';
+
+            case 'Peso':
+                return 'Peso deve ser em kg.';
+        }
+    }
+
     useEffect(() => {
         const formated = dayjs(date).format('DD[/]MM[/]YYYY');
         setFormatDate(formated);
@@ -67,6 +77,9 @@ export default function ModalCreateItem(props: IPropsModal) {
                     <FormControl>
                         <FormControl.Label>{variant}</FormControl.Label>
                         <Input value={value} onChangeText={(text) => setValue(text)} keyboardType='number-pad' />
+                        <FormControl.HelperText>
+                            {renderHelperText()}
+                        </FormControl.HelperText>
                     </FormControl>
                     <FormControl mt="3">
                         <FormControl.Label>Data</FormControl.Label>
