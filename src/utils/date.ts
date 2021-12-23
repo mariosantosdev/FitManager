@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
-export type DaysValue = 'dom' | 'seg' | 'ter' | 'qua' | 'qui' | 'sex' | 'sab';
-export type DayOfWeek = 'Domingo' | 'Segunda' | 'Terça' | 'Quarta' | 'Quinta' | 'Sexta' | 'Sábado';
+export type DaysValue = 'dom' | 'seg' | 'ter' | 'qua' | 'qui' | 'sex' | 'sab' | 'all';
+export type DayOfWeek = 'Domingo' | 'Segunda' | 'Terça' | 'Quarta' | 'Quinta' | 'Sexta' | 'Sábado' | 'Todos os Dias';
 
 export enum EnumDayOfWeek {
     'dom' = 'Domingo',

@@ -27,6 +27,7 @@ export default function FilterDays(props: IFilterDays) {
     const { isOpen, onOpen, onClose } = useDisclose();
 
     const days: Days[] = [
+        { value: 'all', title: 'Todos os Dias' },
         { value: 'dom', title: 'Domingo' },
         { value: 'seg', title: 'Segunda' },
         { value: 'ter', title: 'Terça' },
