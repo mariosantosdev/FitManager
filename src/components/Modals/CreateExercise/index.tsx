@@ -7,16 +7,27 @@ import {
     Modal,
     Row,
     Select,
-    Text
+    Text,
+    useToast
 } from "native-base";
+import axios from "axios";
+
+import api from "@utils/api";
+import { ResponseExercise } from "@utils/apiTypes";
+import Loading from "@components/Loading";
 
 interface IPropsModal {
     open: boolean;
+    isCreatedExercise: React.Dispatch<React.SetStateAction<boolean>>;
     onClose: () => void;
 }
 
 export default function ModalCreateExercise(props: IPropsModal) {
-    const { open, onClose } = props;
+    const { open, onClose, isCreatedExercise } = props;
+    const toast = useToast();
+
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
 
     const [exercise, setExercise] = useState('');
     const [day_of_week, setDayOfWeek] = useState<string>();
@@ -28,14 +39,66 @@ export default function ModalCreateExercise(props: IPropsModal) {
     const [loop01, setLoop01] = useState<string>();
     const [loop02, setLoop02] = useState<string>();
 
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         setLoop(`${loop01}x${loop02}`)
     }, [loop01, loop02]);
 
-    function handleFinish() {
+    async function handleFinish() {
+        try {
+            setLoading(true);
 
-        onClose();
+            await api.post<{ exercise: ResponseExercise }>('/exercise', {
+                title: exercise,
+                day_of_week,
+                loop,
+                delay_time,
+            }, {
+                cancelToken: source.token
+            });
+
+            isCreatedExercise(true);
+            setLoading(false);
+        } catch (error: any) {
+            setLoading(false);
+            let errorMsg = error?.response?.data?.message;
+            toast.show({
+                title: 'Erro',
+                description: errorMsg || 'Ocorreu um erro ao adicionar este exercício.',
+                status: 'error',
+            });
+        } finally {
+            onClose();
+        }
     }
+
+    function cancelRequest() {
+        source.cancel('Operação cancelada pelo usuário');
+        setLoading(false);
+    }
+
+    if (loading) {
+        return (
+            <Modal isOpen={loading} onClose={cancelRequest}>
+                <Modal.Content maxW='350' minH='1/3' justifyContent='center'>
+                    <Modal.CloseButton />
+                    <Loading />
+                </Modal.Content>
+            </Modal>
+        )
+    }
+
+    useEffect(() => {
+        if (!open) {
+            setExercise('');
+            setDayOfWeek('');
+            setTime('seg');
+            setLoop('');
+            setLoop01('');
+            setLoop02('');
+        }
+    }, [open]);
 
     return (
         <Modal isOpen={open} onClose={onClose}>
