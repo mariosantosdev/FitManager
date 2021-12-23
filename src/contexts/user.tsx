@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-type Exercise = {
+export type Exercise = {
     id: number;
     title: string;
     day_of_week: string;
@@ -20,14 +20,14 @@ export type Weight = {
     date: string;
 }
 
-type User = {
+export type User = {
     id: number;
     name: string;
     email: string;
     token: string;
 }
 
-interface IUserContext {
+export interface IUserContext {
     user: User;
     weight: Weight[];
     height: Height[];
