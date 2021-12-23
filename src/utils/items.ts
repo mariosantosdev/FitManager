@@ -1,6 +1,8 @@
 import dayjs from "dayjs";
 
-type Item<T> = { id: T; date: string };
+type Item<T> = { id: T; };
+
+type ItemToSort<T> = { id: T; date: string };
 
 export function RemoveDuplicateItems<T extends Item<K>, K>(arrays: Array<T>) {
     if (arrays.length <= 0) return [];
@@ -15,7 +17,7 @@ export function RemoveDuplicateItems<T extends Item<K>, K>(arrays: Array<T>) {
     return Array.from(uniqueItems.values());
 }
 
-export function SortItemsByDate<T extends Item<K>, K>(items: Array<T>) {
+export function SortItemsByDate<T extends ItemToSort<K>, K>(items: Array<T>) {
     return items.sort((a, b) => {
         return dayjs(a.date).unix() > dayjs(b.date).unix() ? 1 : -1
     });
