@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 type Item<T> = { id: T; date: string };
 
 export function RemoveDuplicateItems<T extends Item<K>, K>(arrays: Array<T>) {
-    if (arrays.length <= 0) return;
+    if (arrays.length <= 0) return [];
     const uniqueItems = new Map<K, T>();
 
     arrays.forEach(item => {
