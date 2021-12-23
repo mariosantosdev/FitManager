@@ -27,12 +27,12 @@ export default function () {
     }
 
     useEffect(() => {
-        const tempLastWeight = weight.length > 0 ? Number(weight[0].title.replace(' kg', '') || 0) : 0;
+        const tempLastWeight = weight.length > 0 ? Number(weight.reverse()[0].title.replace(' kg', '') || 0) : 0;
         setLastWeight(tempLastWeight);
     }, [weight]);
 
     useEffect(() => {
-        const tempLastHeight = height.length > 0 ? Number(height[0].title.replace(' cm', '') || 0) : 0;
+        const tempLastHeight = height.length > 0 ? Number(height.reverse()[0].title.replace(' cm', '') || 0) : 0;
         setLastHeight(tempLastHeight);
     }, [height]);
 
