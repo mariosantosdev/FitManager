@@ -42,18 +42,18 @@ export default function ExerciseItem(props: IPropsListView) {
                 <MaterialCommunityIcons name="chevron-right" size={32} color={theme.colors.text.inLight} />
             </NBRow>
             <Footer>
-                {delay_time && (
+                {delay_time ? (
                     <Row>
                         <Icon name='clock-outline' />
                         <Text>{delay_time}</Text>
                     </Row>
-                )}
-                {loop && (
+                ) : null}
+                {loop ? (
                     <Row>
                         <Icon name='sync' />
                         <Text>{loop}</Text>
                     </Row>
-                )}
+                ) : null}
                 <Row>
                     <Icon name='calendar-clock' />
                     <Text>{dayOfWeek}</Text>
