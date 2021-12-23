@@ -2,10 +2,6 @@ import styled from "styled-components/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const Container = styled.View`
-    margin-top: ${RFValue(12)}px;
-`;
-
 export const Title = styled.Text`
     font-size: ${RFValue(32)}px;
     font-family: ${({ theme }) => theme.fonts.medium};
