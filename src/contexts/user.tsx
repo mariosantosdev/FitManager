@@ -8,13 +8,13 @@ type Exercise = {
     loop?: string;
 }
 
-type Height = {
+export type Height = {
     id: number;
     title: string;
     date: string;
 }
 
-type Weight = {
+export type Weight = {
     id: number;
     title: string;
     date: string;
