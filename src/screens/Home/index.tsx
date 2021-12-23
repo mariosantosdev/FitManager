@@ -20,18 +20,19 @@ export default function () {
 
 
     function calculateIMC() {
-        const imcNumber = lastWeight / Math.pow(lastHeight, 2);
+        const isValid = lastHeight && lastWeight;
+        const imcNumber = lastWeight / (Math.pow(lastHeight, 2));
 
-        setIMC(String(imcNumber));
+        setIMC(isValid ? String(imcNumber) : 'NaN');
     }
 
     useEffect(() => {
-        const tempLastWeight = weight.length > 0 ? Number(weight[0]?.title || 0) : 0;
+        const tempLastWeight = weight.length > 0 ? Number(weight[0].title.replace(' kg', '') || 0) : 0;
         setLastWeight(tempLastWeight);
     }, [weight]);
 
     useEffect(() => {
-        const tempLastHeight = height.length > 0 ? Number(height[0]?.title || 0) : 0;
+        const tempLastHeight = height.length > 0 ? Number(height[0].title.replace(' cm', '') || 0) : 0;
         setLastHeight(tempLastHeight);
     }, [height]);
 
@@ -52,12 +53,12 @@ export default function () {
                 <VStack space={4} alignItems='center'>
                     <HStack space={4}>
                         <StatsCard
-                            value={lastWeight ? weight[0].title : 'NaN'}
+                            value={lastWeight ? `${lastWeight}` : 'NaN'}
                             variation='weight'
                             color={theme.colors.variations.color01}
                         />
                         <StatsCard
-                            value={lastHeight ? height[0].title : 'NaN'}
+                            value={lastHeight ? `${lastHeight}` : 'NaN'}
                             variation='height'
                             color={theme.colors.variations.color02}
                         />
