@@ -1,27 +1,42 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { AdMobBanner } from 'expo-ads-admob';
 import { HStack, VStack } from 'native-base';
 
+import Menu from '@components/Header';
 import LayoutScreen from '@components/LayoutScreen';
 import { HourCard, StatsCard } from '@components/Card';
+import { UserContext } from '@contexts/user';
 import theme from '@utils/theme';
 
 import { Container, TextGreeting } from './styles';
-import Menu from '@components/Header';
-
-const stats = {
-    name: 'Ana Flávia',
-    hour: '18:35',
-    date: '4 de Setembro de 2021',
-    weight: '54',
-    height: '163',
-    imc: '19',
-    steps: '1243',
-    exercises: ['Flexão', 'Abdominal', 'Cárdio']
-}
 
 export default function () {
+    const { user, weight, height, exercises } = useContext(UserContext);
+
+    const [imc, setIMC] = useState('');
+    const [lastWeight, setLastWeight] = useState(0);
+    const [lastHeight, setLastHeight] = useState(0);
+
+
+    function calculateIMC() {
+        const imcNumber = lastWeight / Math.pow(lastHeight, 2);
+
+        setIMC(String(imcNumber));
+    }
+
+    useEffect(() => {
+        const tempLastWeight = weight.length > 0 ? Number(weight[0]?.title || 0) : 0;
+        setLastWeight(tempLastWeight);
+    }, [weight]);
+
+    useEffect(() => {
+        const tempLastHeight = height.length > 0 ? Number(height[0]?.title || 0) : 0;
+        setLastHeight(tempLastHeight);
+    }, [height]);
+
+    useEffect(() => calculateIMC(), [lastWeight, lastHeight]);
+
     return (
         <LayoutScreen>
             <Container contentContainerStyle={{ paddingBottom: 20 }}>
@@ -31,25 +46,25 @@ export default function () {
                     adUnitID="ca-app-pub-7642727712683174/6790082160" // Test ID, Replace with your-admob-unit-id
                     servePersonalizedAds
                     onDidFailToReceiveAdWithError={(error) => console.log(error)} />
-                <TextGreeting>Olá, {stats.name.split(' ')[0]}</TextGreeting>
+                <TextGreeting>Olá, {user.name.split(' ')[0]}</TextGreeting>
                 <HourCard />
 
                 <VStack space={4} alignItems='center'>
                     <HStack space={4}>
                         <StatsCard
-                            value={stats.weight}
+                            value={lastWeight ? weight[0].title : 'NaN'}
                             variation='weight'
                             color={theme.colors.variations.color01}
                         />
                         <StatsCard
-                            value={stats.height}
+                            value={lastHeight ? height[0].title : 'NaN'}
                             variation='height'
                             color={theme.colors.variations.color02}
                         />
                     </HStack>
                     <HStack space={4}>
                         <StatsCard
-                            value={stats.imc}
+                            value={imc}
                             variation='imc'
                             color={theme.colors.variations.color03}
                         />
@@ -61,7 +76,7 @@ export default function () {
                     </HStack>
                     <HStack>
                         <StatsCard
-                            value={stats.exercises.join(', ')}
+                            value={exercises.length > 0 ? exercises.join(', ') : 'Sem Exercícios Hoje!'}
                             variation='exercises'
                             color={theme.colors.variations.color05}
                         />
