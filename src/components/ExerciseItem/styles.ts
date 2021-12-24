@@ -6,10 +6,6 @@ import {
     Row as NBRow,
 } from 'native-base';
 
-export const Container = styled.View`
-    margin-top: ${RFValue(12)}px;
-`;
-
 export const Title = styled.Text`
     font-size: ${RFValue(32)}px;
     font-family: ${({ theme }) => theme.fonts.medium};
