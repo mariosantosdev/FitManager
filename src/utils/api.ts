@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { BASE_URL } from '@env';
 
 const api = axios.create({
-    baseURL: BASE_URL ? BASE_URL : 'http://localhost:3000',
+    baseURL: 'https://fitmanager-server.herokuapp.com/',
 });
 
 export default api;
