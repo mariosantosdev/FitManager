@@ -1,30 +1,50 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import { AdMobBanner } from 'expo-ads-admob';
-import { HStack, VStack } from 'native-base';
+import { HStack, useToast, VStack } from 'native-base';
 
 import Menu from '@components/Header';
 import LayoutScreen from '@components/LayoutScreen';
 import { HourCard, StatsCard } from '@components/Card';
-import { Height, UserContext, Weight } from '@contexts/user';
-import theme from '@utils/theme';
+import { UserContext, Height, Weight, Exercise } from '@contexts/user';
+import api from '@utils/api';
+import { IExercisesReponse } from '@utils/apiTypes';
+import { getDayWeekType } from '@utils/date';
 import { SortItemsByDate } from '@utils/items';
+import theme from '@utils/theme';
 
 import { Container, TextGreeting } from './styles';
 
 export default function () {
-    const { user, weight, height, exercises } = useContext(UserContext);
+    const toast = useToast();
+    const { user, weight, height } = useContext(UserContext);
 
     const [imc, setIMC] = useState('');
     const [lastWeight, setLastWeight] = useState(0);
     const [lastHeight, setLastHeight] = useState(0);
-
+    const [exercises, setExercise] = useState<Exercise[]>([]);
 
     function calculateIMC() {
         const isValid = lastHeight && lastWeight;
         const imcNumber = (lastWeight / (Math.pow((lastHeight / 100), 2))).toFixed(2);
 
         setIMC(isValid ? String(imcNumber) : 'NaN');
+    }
+
+    async function fetchExercises() {
+        try {
+            const day = getDayWeekType();
+            const { data } = await api.get<IExercisesReponse>(`/exercise?day=${day}`);
+
+            setExercise(data.exercises);
+        } catch (error: any) {
+            console.log(error);
+            toast.show({
+                title: 'Erro',
+                description: 'Não foi possível encontrar seus exercícios de hoje...',
+                status: 'error',
+            });
+        }
     }
 
     useEffect(() => {
@@ -46,6 +66,8 @@ export default function () {
     }, [height]);
 
     useEffect(() => calculateIMC(), [lastWeight, lastHeight]);
+
+    useEffect(() => { fetchExercises() }, []);
 
     return (
         <LayoutScreen>
@@ -86,7 +108,11 @@ export default function () {
                     </HStack>
                     <HStack>
                         <StatsCard
-                            value={exercises.length > 0 ? exercises.join(', ') : 'Sem Exercícios Hoje!'}
+                            value={
+                                exercises.length > 0 ?
+                                    exercises.map(exercise => exercise.title).join(', ')
+                                    : 'Sem Exercícios Hoje!'
+                            }
                             variation='exercises'
                             color={theme.colors.variations.color05}
                         />
