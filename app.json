@@ -9,7 +9,6 @@
     "version": "1.0.0",
     "assetBundlePatterns": ["**/*"],
     "android": {
-      "package": "com.mariotech.fitmanager",
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-7642727712683174~4619731311"
       }
