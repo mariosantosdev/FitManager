@@ -21,7 +21,7 @@ import {
 
 interface IPropsListView {
     item: {
-        id: number;
+        id: string;
         title: string;
         day_of_week: string;
         delay_time?: string;

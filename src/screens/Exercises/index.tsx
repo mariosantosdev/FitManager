@@ -17,7 +17,7 @@ import { DaysValue, getDayWeekType } from '@utils/date';
 import { Container, Footer, Button } from './styles';
 
 type Exercise = {
-    id: number;
+    id: string;
     title: string;
     day_of_week: string;
     delay_time?: string;
@@ -54,7 +54,7 @@ export default function () {
         }
     }
 
-    async function deleteExercise(id: number, index: number) {
+    async function deleteExercise(id: string, index: number) {
         try {
             setLoading(true);
             await api.delete(`/exercise/${id}`);
@@ -81,7 +81,7 @@ export default function () {
         }
     }
 
-    async function handleDeleteExercise(id: number, index: number) {
+    async function handleDeleteExercise(id: string, index: number) {
         Alert.alert(
             'Atenção',
             'Você tem certeza que deseja DELETAR este exercício?',

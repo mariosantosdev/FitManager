@@ -18,7 +18,7 @@ import { RemoveDuplicateItems, SortItemsByDate } from '@utils/items';
 import { Container, Footer, Button } from './styles';
 
 type Weight = {
-    id: number;
+    id: string;
     title: string;
     date: string;
 }
@@ -45,7 +45,7 @@ export default function () {
                 date
             });
 
-            const uniqueWeights = RemoveDuplicateItems<Weight, number>([...weight, data.weight]);
+            const uniqueWeights = RemoveDuplicateItems<Weight, string>([...weight, data.weight]);
 
             setWeight(uniqueWeights);
             setLoading(false);
@@ -60,7 +60,7 @@ export default function () {
         }
     }
 
-    async function deleteWeight(id: number, index: number) {
+    async function deleteWeight(id: string, index: number) {
         try {
             setLoading(true);
             await api.delete(`/weight/${id}`);
@@ -87,7 +87,7 @@ export default function () {
         }
     }
 
-    async function handleDeleteWeight(id: number, index: number) {
+    async function handleDeleteWeight(id: string, index: number) {
         Alert.alert(
             'Atenção',
             'Você tem certeza que deseja DELETAR este peso?',
@@ -103,7 +103,7 @@ export default function () {
             setLoading(true);
             const { data } = await api.get<IWeightsReponse>('/weight');
 
-            const uniqueWeights = RemoveDuplicateItems<Weight, number>([...weight, ...data.weights]);
+            const uniqueWeights = RemoveDuplicateItems<Weight, string>([...weight, ...data.weights]);
 
             setWeight(uniqueWeights);
             setLoading(false);
@@ -122,7 +122,7 @@ export default function () {
     }, []);
 
     useEffect(() => {
-        setSortedWeight(SortItemsByDate<Weight, number>(weight).reverse());
+        setSortedWeight(SortItemsByDate<Weight, string>(weight).reverse());
     }, [weight]);
 
     if (loading) {

@@ -10,9 +10,9 @@ import {
 } from 'native-base';
 
 interface IPropsHiddenList {
-    itemID: number;
+    itemID: string;
     index: number;
-    onDelete: (id: number, index: number) => void;
+    onDelete: (id: string, index: number) => void;
 }
 
 export default function HiddenListItem(props: IPropsHiddenList) {

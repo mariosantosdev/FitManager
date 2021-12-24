@@ -49,7 +49,7 @@ export default function () {
 
     useEffect(() => {
         if (weight.length > 0) {
-            const tempLastWeight = SortItemsByDate<Weight, number>(weight).reverse()[0].title.replace(' kg', '')
+            const tempLastWeight = SortItemsByDate<Weight, string>(weight).reverse()[0].title.replace(' kg', '')
             setLastWeight(Number(tempLastWeight));
         } else {
             setLastWeight(NaN);
@@ -58,7 +58,7 @@ export default function () {
 
     useEffect(() => {
         if (height.length > 0) {
-            const tempLastHeight = SortItemsByDate<Height, number>(height).reverse()[0].title.replace(' cm', '')
+            const tempLastHeight = SortItemsByDate<Height, string>(height).reverse()[0].title.replace(' cm', '')
             setLastHeight(Number(tempLastHeight));
         } else {
             setLastHeight(NaN);

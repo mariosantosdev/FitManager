@@ -1,33 +1,33 @@
 export type Height = {
-    "id": number;
+    "id": string;
     "title": string;
     "date": string;
     "created_at": string;
-    "user_id": number;
+    "user_id": string;
 }
 
 export type Weight = {
-    "id": number;
+    "id": string;
     "title": string;
     "date": string;
     "created_at": string;
-    "user_id": number;
+    "user_id": string;
 }
 
 export type ResponseExercise = {
-    "id": number;
+    "id": string;
     "title": string;
     "day_of_week": string;
     "loop": string;
     "delay_time": string;
     "created_at": string;
-    "user_id": number;
+    "user_id": string;
 }
 
 export interface ISignInResponse {
     "token": string;
     "user": {
-        "id": number;
+        "id": string;
         "name": string;
         "email": string;
         "last_login": string;
@@ -41,7 +41,7 @@ export interface ISignInResponse {
 export interface ISignUpResponse {
     "token": string;
     "user": {
-        "id": number;
+        "id": string;
         "name": string;
         "email": string;
         "created_at": string;

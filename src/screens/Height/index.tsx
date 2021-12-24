@@ -17,7 +17,7 @@ import api from '@utils/api';
 import { UserContext } from '@contexts/user';
 
 type Height = {
-    id: number;
+    id: string;
     title: string;
     date: string;
 }
@@ -44,7 +44,7 @@ export default function () {
                 date
             });
 
-            const uniqueHeights = RemoveDuplicateItems<Height, number>([...height, data.height]);
+            const uniqueHeights = RemoveDuplicateItems<Height, string>([...height, data.height]);
 
             setHeight(uniqueHeights);
             setLoading(false);
@@ -59,7 +59,7 @@ export default function () {
         }
     }
 
-    async function deleteHeight(id: number, index: number) {
+    async function deleteHeight(id: string, index: number) {
         try {
             setLoading(true);
             await api.delete(`/height/${id}`);
@@ -86,7 +86,7 @@ export default function () {
         }
     }
 
-    async function handleDeleteHeight(id: number, index: number) {
+    async function handleDeleteHeight(id: string, index: number) {
         Alert.alert(
             'Atenção',
             'Você tem certeza que deseja DELETAR esta altura?',
@@ -102,7 +102,7 @@ export default function () {
             setLoading(true);
             const { data } = await api.get<IHeightsReponse>('/height');
 
-            const uniqueHeights = RemoveDuplicateItems<Height, number>([...height, ...data.heights]);
+            const uniqueHeights = RemoveDuplicateItems<Height, string>([...height, ...data.heights]);
 
             setHeight(uniqueHeights);
             setLoading(false);
@@ -121,7 +121,7 @@ export default function () {
     }, []);
 
     useEffect(() => {
-        setSortedHeight(SortItemsByDate<Height, number>(height).reverse());
+        setSortedHeight(SortItemsByDate<Height, string>(height).reverse());
     }, [height]);
 
     if (loading) {

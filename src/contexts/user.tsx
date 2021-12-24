@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export type Exercise = {
-    id: number;
+    id: string;
     title: string;
     day_of_week: string;
     delay_time?: string;
@@ -9,19 +9,19 @@ export type Exercise = {
 }
 
 export type Height = {
-    id: number;
+    id: string;
     title: string;
     date: string;
 }
 
 export type Weight = {
-    id: number;
+    id: string;
     title: string;
     date: string;
 }
 
 export type User = {
-    id: number;
+    id: string;
     name: string;
     email: string;
     token: string;
@@ -46,7 +46,7 @@ export const UserContext = React.createContext({} as IUserContext);
 
 export default function UserContextProvider({ children }) {
     const [user, setUser] = useState<User>({
-        id: 0,
+        id: '',
         name: '',
         email: '',
         token: '',
@@ -58,7 +58,7 @@ export default function UserContextProvider({ children }) {
 
     function signOut() {
         setUser({
-            id: 0,
+            id: '',
             name: '',
             email: '',
             token: '',

@@ -13,7 +13,7 @@ import theme from "@utils/theme";
 
 interface IPropsListView {
     item: {
-        id: number;
+        id: string;
         title: string;
         date: string;
     }
