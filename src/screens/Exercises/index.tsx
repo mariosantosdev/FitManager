@@ -132,7 +132,7 @@ export default function () {
                         ListFooterComponent={
                             <AdMobBanner
                                 bannerSize="fullBanner"
-                                adUnitID="ca-app-pub-7642727712683174/6790082160" // Test ID, Replace with your-admob-unit-id
+                                adUnitID="ca-app-pub-7642727712683174/6132263159" // Test ID, Replace with your-admob-unit-id
                                 servePersonalizedAds
                                 onDidFailToReceiveAdWithError={(error) => console.log(error)} />
                         }
