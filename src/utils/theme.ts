@@ -30,7 +30,16 @@ const fonts = {
 export const nativeBaseTheme = extendTheme({
     colors: {
         primary: {
-            500: colors.primary
+            50: '#e9e9ff',
+            100: '#bfbff8',
+            200: '#9694ed',
+            300: '#6d69e3',
+            400: '#433eda',
+            500: colors.primary,
+            600: '#1f1d97',
+            700: '#15136d',
+            800: '#0b0b43',
+            900: '#04031c',
         }
     },
     fonts
