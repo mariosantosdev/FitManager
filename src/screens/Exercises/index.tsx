@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import { Alert } from 'react-native';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import { AdMobBanner } from 'expo-ads-admob';
-import { Divider } from 'native-base';
+import { Divider, useToast } from 'native-base';
 
-import LayoutScreen from '@components/LayoutScreen';
-import ExerciseItem from '@components/ExerciseItem';
+import ExerciseItem, { HiddenExerciseItem } from '@components/ExerciseItem';
+import FilterDays from '@components/FilterDays';
 import Header from '@components/Header';
 import ModalCreateExercise from '@components/Modals/CreateExercise';
-import FilterDays from '@components/FilterDays';
+import LayoutScreen from '@components/LayoutScreen';
+import Loading from '@components/Loading';
+import api from '@utils/api';
+import { IExercisesReponse } from '@utils/apiTypes';
 import { DaysValue, getDayWeekType } from '@utils/date';
 
 import { Container, Footer, Button } from './styles';
@@ -20,63 +24,87 @@ type Exercise = {
     loop?: string;
 }
 
-const exercises: Exercise[] = [
-    {
-        id: 1,
-        title: 'Flexão',
-        day_of_week: 'sab',
-        delay_time: '30 seg',
-        loop: '3x12',
-    },
-    {
-        id: 2,
-        title: 'Abdominal',
-        day_of_week: 'sab',
-        delay_time: '25 seg',
-        loop: '4x15',
-    },
-    {
-        id: 3,
-        title: 'Cárdio',
-        day_of_week: 'sab',
-        delay_time: '15 min',
-    },
-    {
-        id: 4,
-        title: 'Prancha',
-        day_of_week: 'sab',
-        delay_time: '3 min',
-    },
-    {
-        id: 5,
-        title: 'Cadeira Extensora',
-        day_of_week: 'sab',
-        delay_time: '30 seg',
-        loop: '3x10',
-    },
-]
-
 export default function () {
-    const [exerciseInput, setExerciseInput] = useState('');
+    const toast = useToast();
+
     const [showModal, setShowModal] = useState(false);
     const [selectedDay, setSelecteddDay] = useState<DaysValue>(getDayWeekType());
-    const [tratedExercises, setTratedExercises] = useState<Exercise[]>([]);
+    const [exercises, setExercises] = useState<Exercise[]>([]);
 
-    function handleSubmitExercise(value: string, date: string) {
-        if (!exerciseInput.trim()) return;
-        setShowModal(false);
-
-        alert(`${exerciseInput} kg`);
-        setExerciseInput('');
-    }
+    const [loading, setLoading] = useState(false);
 
     const handleShowModal = () => setShowModal(true);
     const handleHideModal = () => setShowModal(false);
 
+    async function fetchExercise() {
+        try {
+            setLoading(true);
+            const haveSelectedDay = selectedDay !== 'all' ? `?day=${selectedDay}` : '';
+            const { data } = await api.get<IExercisesReponse>(`/exercise${haveSelectedDay}`);
+
+            setExercises(data.exercises);
+            setLoading(false);
+        } catch (error: any) {
+            setLoading(false);
+            let errorMsg = error?.response?.data;
+            toast.show({
+                title: 'Erro',
+                description: errorMsg || 'Ocorreu um erro ao localizar seus exercícios.',
+            });
+        }
+    }
+
+    async function deleteExercise(id: number, index: number) {
+        try {
+            setLoading(true);
+            await api.delete(`/exercise/${id}`);
+
+            setLoading(false);
+
+            let exercisesInApp = [...exercises];
+            exercisesInApp.splice(index, 1);
+            setExercises(exercisesInApp);
+
+            toast.show({
+                title: 'Sucesso',
+                description: 'Exercício deletado com sucesso',
+                status: 'success',
+            });
+        } catch (error) {
+            setLoading(false);
+            let errorMsg = error?.response?.data?.message;
+            toast.show({
+                title: 'Erro',
+                description: errorMsg || 'Ocorreu um erro ao deletar este peso.',
+                status: 'error',
+            });
+        }
+    }
+
+    async function handleDeleteExercise(id: number, index: number) {
+        Alert.alert(
+            'Atenção',
+            'Você tem certeza que deseja DELETAR este exercício?',
+            [
+                { text: 'Cancelar', style: 'cancel' },
+                { text: 'Deletar', style: 'default', onPress: () => deleteExercise(id, index) }
+            ]
+        );
+    }
+
     useEffect(() => {
-        const exercise = [...exercises].filter(exercise => exercise.day_of_week === selectedDay);
-        setTratedExercises(exercise);
+        fetchExercise();
     }, [selectedDay]);
+
+    if (loading) {
+        return (
+            <LayoutScreen>
+                <Container>
+                    <Loading />
+                </Container>
+            </LayoutScreen>
+        )
+    }
 
     return (
         <React.Fragment>
@@ -87,10 +115,18 @@ export default function () {
                         value={selectedDay}
                         onChangeValue={setSelecteddDay}
                     />
-                    <FlatList
-                        data={tratedExercises}
+                    <SwipeListView
+                        data={exercises}
                         keyExtractor={(item) => `${item.id}`}
                         renderItem={({ item }) => <ExerciseItem item={item} />}
+                        renderHiddenItem={({ item, index }) => (
+                            <HiddenExerciseItem
+                                itemID={item.id}
+                                index={index}
+                                onDelete={handleDeleteExercise}
+                            />
+                        )}
+                        rightOpenValue={-70}
                         ItemSeparatorComponent={() => <Divider />}
                         contentContainerStyle={{ paddingBottom: 20 }}
                         ListFooterComponent={
@@ -106,7 +142,11 @@ export default function () {
                     </Footer>
                 </Container>
             </LayoutScreen>
-            <ModalCreateExercise open={showModal} onClose={handleHideModal} />
+            <ModalCreateExercise
+                open={showModal}
+                onClose={handleHideModal}
+                refetch={fetchExercise}
+            />
         </React.Fragment>
     )
 }

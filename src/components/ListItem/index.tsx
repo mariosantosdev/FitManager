@@ -1,13 +1,15 @@
 import React from "react";
 import dayjs from 'dayjs';
+import HiddenListItem from "./hidden";
 
 import {
-    Container,
     Title,
     Icon,
     Date,
     Footer,
 } from './styles';
+import { VStack } from "native-base";
+import theme from "@utils/theme";
 
 interface IPropsListView {
     item: {
@@ -23,12 +25,14 @@ export default function ListItem(props: IPropsListView) {
     const formatedDate = dayjs(date).format('ddd, DD [de] MMM[.]');
 
     return (
-        <Container>
+        <VStack flex={1} justifyContent='center' bgColor={theme.colors.background.light}>
             <Title>{title}</Title>
             <Footer>
                 <Icon name='calendar' />
                 <Date>{formatedDate}</Date>
             </Footer>
-        </Container>
+        </VStack>
     )
 }
+
+export { HiddenListItem };

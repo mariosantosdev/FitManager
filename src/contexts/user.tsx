@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-type Exercise = {
+export type Exercise = {
     id: number;
     title: string;
     day_of_week: string;
@@ -8,27 +8,26 @@ type Exercise = {
     loop?: string;
 }
 
-type Height = {
+export type Height = {
     id: number;
     title: string;
     date: string;
 }
 
-type Weight = {
+export type Weight = {
     id: number;
     title: string;
     date: string;
 }
 
-type User = {
+export type User = {
     id: number;
     name: string;
     email: string;
     token: string;
-    refreshToken: string;
 }
 
-interface IUserContext {
+export interface IUserContext {
     user: User;
     weight: Weight[];
     height: Height[];
@@ -39,6 +38,7 @@ interface IUserContext {
         setWeight: React.Dispatch<React.SetStateAction<Weight[]>>;
         setHeight: React.Dispatch<React.SetStateAction<Height[]>>;
         setExercise: React.Dispatch<React.SetStateAction<Exercise[]>>;
+        signOut: () => void;
     }
 }
 
@@ -50,18 +50,30 @@ export default function UserContextProvider({ children }) {
         name: '',
         email: '',
         token: '',
-        refreshToken: ''
     });
 
     const [weight, setWeight] = useState<Weight[]>([]);
     const [height, setHeight] = useState<Height[]>([]);
     const [exercises, setExercise] = useState<Exercise[]>([]);
 
+    function signOut() {
+        setUser({
+            id: 0,
+            name: '',
+            email: '',
+            token: '',
+        });
+        setWeight([]);
+        setHeight([]);
+        setExercise([]);
+    }
+
     const actions = {
         setUser,
         setWeight,
         setHeight,
-        setExercise
+        setExercise,
+        signOut,
     }
 
     return (

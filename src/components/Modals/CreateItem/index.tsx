@@ -29,11 +29,11 @@ export default function ModalCreateItem(props: IPropsModal) {
     function handleFinish() {
         if (!value.trim() || !date) return;
 
+        action(value, date.toString());
         setValue('');
         setDate(dayjs().toDate());
         setShowDatePicker(false);
         onClose();
-        action(value, date.toString());
     }
 
     function changeDate(event: Event, selectedDate: Date) {
@@ -42,6 +42,16 @@ export default function ModalCreateItem(props: IPropsModal) {
 
         setShowDatePicker(false);
         setDate(selectedDate);
+    }
+
+    function renderHelperText() {
+        switch (variant) {
+            case 'Altura':
+                return 'Altura deve ser em cm.';
+
+            case 'Peso':
+                return 'Peso deve ser em kg.';
+        }
     }
 
     useEffect(() => {
@@ -66,7 +76,10 @@ export default function ModalCreateItem(props: IPropsModal) {
                 <Modal.Body>
                     <FormControl>
                         <FormControl.Label>{variant}</FormControl.Label>
-                        <Input value={value} onChangeText={setValue} keyboardType='number-pad' />
+                        <Input value={value} onChangeText={(text) => setValue(text)} keyboardType='number-pad' />
+                        <FormControl.HelperText>
+                            {renderHelperText()}
+                        </FormControl.HelperText>
                     </FormControl>
                     <FormControl mt="3">
                         <FormControl.Label>Data</FormControl.Label>
