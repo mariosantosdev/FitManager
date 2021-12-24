@@ -2,30 +2,71 @@
   <img src="https://i.ibb.co/TkWgXRH/banner.png" width="900" />
 </p>
 
+# Links
+
+<p>If you wish download the app, you can acces the below link!</p>
+
+- [Google Play](https://play.google.com/store/apps/details?id=com.mariotech.fitmanager)
+
 # Tools
 
 <p>This project using the below tecnologies</p>
 
 - [Expo](https://docs.expo.io/versions/latest/)
+- [Expo Vector Icons](https://icons.expo.fyi/)
 - [React Native](https://facebook.github.io/react-native/)
 - [React Navigation](https://reactnavigation.org/)
 - [Native Base](https://nativebase.io/)
-- [Axios](https://github.com/axios/axios)
-- [Material Icons Community](https://materialdesignicons.com)
+- [Axios](https://axios-http.com/ptbr/)
 - [VSCode](https://code.visualstudio.com/)
+- [Styled-Componets](https://styled-components.com/)
+- [DayJS](https://day.js.org/)
 
 # Images
 
+## Android
+
 <p align="center">
-  <img height="420" src="https://i.ibb.co/BP8CzV4/screenshot-2020-08-31-17-28-12.jpg" />
-  <img height="420" src="https://i.ibb.co/FnybmD5/screenshot-2020-09-18-11-46-37-754.png" />
-  <img height="420" src="https://i.ibb.co/W2rC4yz/screenshot-2020-09-18-11-46-43-538.png" />
+  <img height="420" src="https://i.ibb.co/NZxLJCc/Screenshot-20211223-215153.png" />
+  <img height="420" src="https://i.ibb.co/K6TBFYh/Screenshot-20211223-215215.png" />
+</p>
+<br />
+<p align="center">
+  <img height="420" src="https://i.ibb.co/jrZq1pG/Screenshot-20211223-215223.png" />
+  <img height="420" src="https://i.ibb.co/PTwLPdv/Screenshot-20211223-214613.png" />
 </p>
 <br/>
 <p align="center">
-  <img height="420" src="https://i.ibb.co/3FhxMB8/screenshot-2020-08-31-17-28-37.jpg" />
-  <img height="420" src="https://i.ibb.co/5k2Stw9/screenshot-2020-08-31-17-28-32.jpg" />
-  <img height="420" src="https://i.ibb.co/Vp43Vc7/screenshot-2020-08-31-17-29-55.jpg" />
+  <img height="420" src="https://i.ibb.co/rc9kJvX/Screenshot-20211223-221227.png" />
+  <img height="420" src="https://i.ibb.co/TbJt3bg/Screenshot-20211223-221133.png" />
+</p>
+</br>
+<p align="center">
+  <img height="420" src="https://i.ibb.co/NFVKdpk/Screenshot-20211223-215141.png" />
+  <img height="420" src="https://i.ibb.co/PCdBFv0/Screenshot-20211223-221538.png" />
+</p>
+<br/>
+
+## iOS
+
+<p align="center">
+  <img height="640" src="https://i.ibb.co/XxgQynf/IMG-0681.png" />
+  <img height="640" src="https://i.ibb.co/Yh4Gc3c/IMG-0682.png" />
+</p>
+<br />
+<p align="center">
+  <img height="640" src="https://i.ibb.co/2YBSw82/IMG-0683.png" />
+  <img height="640" src="https://i.ibb.co/k8YyF7R/IMG-0684.png" />
+</p>
+<br/>
+<p align="center">
+  <img height="640" src="https://i.ibb.co/v1g471d/IMG-0685.png" />
+  <img height="640" src="https://i.ibb.co/b2TSXHY/IMG-0686.png" />
+</p>
+</br>
+<p align="center">
+  <img height="640" src="https://i.ibb.co/TL72KfX/IMG-0687.png" />
+  <img height="640" src="https://i.ibb.co/HVrxpBH/IMG-6-D6239-A70963-1.jpg" />
 </p>
 <br/>
 
@@ -43,7 +84,7 @@ You'll needed that the server is running, for this follow that [documentation](h
 
 ```
 $ git clone https://github.com/nvrsantos/FitManager.git
-$ cd fitManager-server
+$ cd FitManager
 ```
 
 ### Installing dependencies
