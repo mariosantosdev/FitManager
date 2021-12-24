@@ -54,8 +54,9 @@ export default function ModalChangePassword(props: IPropsModal) {
         try {
             setLoading(true);
 
-            await api.put('/user', {
-                password: newPassword
+            await api.put('/user/password', {
+                password,
+                newPassword
             });
 
 
