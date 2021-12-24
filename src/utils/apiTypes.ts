@@ -14,6 +14,16 @@ export type Weight = {
     "user_id": number;
 }
 
+export type ResponseExercise = {
+    "id": number;
+    "title": string;
+    "day_of_week": string;
+    "loop": string;
+    "delay_time": string;
+    "created_at": string;
+    "user_id": number;
+}
+
 export interface ISignInResponse {
     "token": string;
     "user": {
@@ -46,4 +56,8 @@ export interface IWeightsReponse {
 
 export interface IHeightsReponse {
     heights: Height[];
+}
+
+export interface IExercisesReponse {
+    exercises: ResponseExercise[];
 }
