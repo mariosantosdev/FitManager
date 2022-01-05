@@ -6,7 +6,7 @@
     "githubUrl": "https://github.com/mariosantosdev/FitManager",
     "orientation": "portrait",
     "primaryColor": "#9C9AED",
-    "version": "1.0.0",
+    "version": "2.0.3",
     "assetBundlePatterns": ["**/*"],
     "android": {
       "config": {
