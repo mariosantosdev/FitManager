@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import constants from 'expo-constants';
 import { AdMobBanner } from 'expo-ads-admob';
 import { Button, Divider, Heading, Icon, VStack } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
@@ -27,11 +28,13 @@ export default function () {
             <LayoutScreen>
                 <Container contentContainerStyle={{ paddingBottom: 20 }}>
                     <Menu />
-                    <AdMobBanner
-                        bannerSize="fullBanner"
-                        adUnitID="ca-app-pub-7642727712683174/8237544138" // Test ID, Replace with your-admob-unit-id
-                        servePersonalizedAds
-                        onDidFailToReceiveAdWithError={(error) => console.log(error)} />
+                    {!constants.manifest.extra.developmentMode && (
+                        <AdMobBanner
+                            bannerSize="fullBanner"
+                            adUnitID="ca-app-pub-7642727712683174/8237544138" // Test ID, Replace with your-admob-unit-id
+                            servePersonalizedAds
+                            onDidFailToReceiveAdWithError={(error) => console.log(error)} />
+                    )}
                     <VStack w="100%" flex={1} alignItems="center">
                         <Heading my={2}>Conta</Heading>
                         <Button

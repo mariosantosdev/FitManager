@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import constants from 'expo-constants';
 import { AdMobBanner } from 'expo-ads-admob';
 import { Divider, useToast } from 'native-base';
 
@@ -129,13 +130,18 @@ export default function () {
                         rightOpenValue={-70}
                         ItemSeparatorComponent={() => <Divider />}
                         contentContainerStyle={{ paddingBottom: 20 }}
-                        ListFooterComponent={
-                            <AdMobBanner
-                                bannerSize="fullBanner"
-                                adUnitID="ca-app-pub-7642727712683174/6132263159" // Test ID, Replace with your-admob-unit-id
-                                servePersonalizedAds
-                                onDidFailToReceiveAdWithError={(error) => console.log(error)} />
-                        }
+                        ListFooterComponent={() => {
+                            if (constants.manifest.extra.developmentMode)
+                                return null;
+
+                            return (
+                                <AdMobBanner
+                                    bannerSize="fullBanner"
+                                    adUnitID="ca-app-pub-7642727712683174/6132263159" // Test ID, Replace with your-admob-unit-id
+                                    servePersonalizedAds
+                                    onDidFailToReceiveAdWithError={(error) => console.log(error)} />
+                            )
+                        }}
                     />
                     <Footer>
                         <Button onPress={handleShowModal}>ADICIONAR EXERCÍCIO</Button>

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
+import constants from 'expo-constants';
 import { AdMobBanner } from 'expo-ads-admob';
 import { HStack, useToast, VStack } from 'native-base';
 
@@ -38,7 +39,25 @@ export default function () {
 
             setExercise(data.exercises);
         } catch (error: any) {
-            console.log(error);
+            if (error.response) {
+                // A requisição foi feita e o servidor respondeu com um código de status
+                // que sai do alcance de 2xx
+                console.log('response')
+                console.error(error.response.data);
+                console.error(error.response.status);
+                console.error(error.response.headers);
+            } else if (error.request) {
+                // A requisição foi feita mas nenhuma resposta foi recebida
+                // `error.request` é uma instância do XMLHttpRequest no navegador e uma instância de
+                // http.ClientRequest no node.js
+                console.log('request')
+                console.error(error.request);
+            } else {
+                // Alguma coisa acontenceu ao configurar a requisição que acionou este erro.
+                console.error('Error', error.message);
+            }
+
+
             toast.show({
                 title: 'Erro',
                 description: 'Não foi possível encontrar seus exercícios de hoje...',
@@ -73,11 +92,13 @@ export default function () {
         <LayoutScreen>
             <Container contentContainerStyle={{ paddingBottom: 20 }}>
                 <Menu />
-                <AdMobBanner
-                    bannerSize="fullBanner"
-                    adUnitID="ca-app-pub-7642727712683174/6790082160" // Test ID, Replace with your-admob-unit-id
-                    servePersonalizedAds
-                    onDidFailToReceiveAdWithError={(error) => console.log(error)} />
+                {!constants.manifest.extra.developmentMode && (
+                    <AdMobBanner
+                        bannerSize="fullBanner"
+                        adUnitID="ca-app-pub-7642727712683174/6790082160" // Test ID, Replace with your-admob-unit-id
+                        servePersonalizedAds
+                        onDidFailToReceiveAdWithError={(error) => console.log(error)} />
+                )}
                 <TextGreeting>Olá, {user.name.split(' ')[0]}</TextGreeting>
                 <HourCard />
 

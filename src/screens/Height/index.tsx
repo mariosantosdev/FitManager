@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import constants from 'expo-constants';
 import { AdMobBanner } from 'expo-ads-admob';
 import { Alert } from 'react-native';
 
@@ -153,13 +154,18 @@ export default function () {
                         rightOpenValue={-70}
                         ItemSeparatorComponent={() => <Divider />}
                         contentContainerStyle={{ paddingBottom: 20 }}
-                        ListFooterComponent={
-                            <AdMobBanner
-                                bannerSize="fullBanner"
-                                adUnitID="ca-app-pub-7642727712683174/8230978731" // Test ID, Replace with your-admob-unit-id
-                                servePersonalizedAds
-                                onDidFailToReceiveAdWithError={(error) => console.log(error)} />
-                        }
+                        ListFooterComponent={() => {
+                            if (constants.manifest.extra.developmentMode)
+                                return null;
+
+                            return (
+                                <AdMobBanner
+                                    bannerSize="fullBanner"
+                                    adUnitID="ca-app-pub-7642727712683174/8230978731" // Test ID, Replace with your-admob-unit-id
+                                    servePersonalizedAds
+                                    onDidFailToReceiveAdWithError={(error) => console.log(error)} />
+                            )
+                        }}
                     />
                     <Footer>
                         <Button onPress={handleShowModal}>ADICIONAR ALTURA</Button>
